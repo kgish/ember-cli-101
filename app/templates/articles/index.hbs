@@ -8,12 +8,21 @@
     </tr>
   </thead>
   <tbody>
-    {{#each}}
+    {{#each itemController='articles/item'}}
       <tr>
-        <td>{{description}}</td>
-        <td>{{createdAt}}</td>
-        <td></td>
-        <td></td>
+        <td>{{model.description}}</td>
+        <td>{{model.notes}}</td>
+        <td>{{model.createdAt}}</td>
+        <td>{{view Ember.Select content=states selection=model.state}}</td>
+        <td>
+          {{#if model.isSaving}}
+            <p>Saving ...</p>
+          {{else}}
+            {{#if model.isDirty}}
+              <button {{action "save" model}}>Save</button>
+            {{/if}}
+          {{/if}}
+        </td>
       </tr>
     {{/each}}
   </tbody>
